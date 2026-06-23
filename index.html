@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#14151a" />
+  <title>AnimeForYou - Watch High Quality Anime Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      background-color: #14151a;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(to right, #eb3349 40%, #f45c43);
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 100;
+    }
+
+    #title1 {
+      height: fit-content;
+      width: 70%;
+    }
+
+    #title1 a img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+    }
+
+    #title1 a {
+      font-size: x-large;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #title1 a .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 8px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 800;
+      color: #eb3349;
+      font-size: 1rem;
+    }
+
+    #search-div {
+      height: fit-content;
+      background-color: white;
+      border-radius: 5px;
+      height: 40px;
+      width: 30%;
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    #search-div form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    #search-div input {
+      height: 28px;
+      background-color: transparent;
+      border: none;
+      padding-left: 10px;
+      font-size: 14px;
+      font-weight: 400;
+      color: black;
+      font-family: 'Montserrat', sans-serif;
+      width: calc(100% - 40px);
+      outline: none;
+    }
+
+    #search-div button {
+      background-color: transparent;
+      border: none;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* ===== SLIDESHOW ===== */
+    .slideshow-container {
+      width: 100%;
+      position: relative;
+    }
+
+    .mySlides {
+      display: none;
+      height: 400px;
+      width: 100%;
+      position: relative;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .mySlides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .shado {
+      box-shadow: 75px 0px 150px 100px #14151a inset;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .data-slider {
+      z-index: 2;
+      margin-left: 5%;
+      max-width: 50%;
+      position: relative;
+      padding-bottom: 40px;
+    }
+
+    .data-slider h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      text-align: left;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .data-slider .spotlight {
+      color: #ed3832;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .data-slider .year {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      margin-top: 15px;
+    }
+
+    .data-slider .small-synop {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      margin-top: 10px;
+      line-height: 1.6em;
+      font-weight: 300;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .watch-btn {
+      display: inline-block;
+      background: #ed3832;
+      color: black;
+      border-radius: 4px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .watch-btn:hover {
+      background: #ff4444;
+    }
+
+    .watch-btn2 {
+      background-color: #4a4b51;
+      color: white;
+      margin-left: 10px;
+    }
+
+    .watch-btn2:hover {
+      background-color: #5a5b61;
+    }
+
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -22px;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background: rgba(0, 0, 0, .2);
+      z-index: 5;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover,
+    .next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* ===== SECTIONS ===== */
+    .divox {
+      padding: 0;
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      color: #ed3832;
+      font-weight: 600;
+      font-size: 20px;
+      margin: 10px;
+    }
+
+    #latest {
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+
+    #latest2 {
+      padding: 0;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+
+    #latest2 a {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* ===== ANIME CARDS ===== */
+    .la-anime {
+      display: inline-block;
+      padding: 0;
+      margin: 0 3px;
+      margin-bottom: 6px;
+      position: relative;
+      width: calc(50% - 20px);
+      max-width: 200px;
+    }
+
+    .shadow {
+      box-shadow: inset 0px -100px 50px -50px rgba(32, 33, 37, 1);
+      position: relative;
+      height: 200px;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .shadow img {
+      border: none;
+      border-radius: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      max-width: unset;
+      position: relative;
+    }
+
+    .dubb {
+      color: white;
+      background-color: red;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      display: block;
+      width: fit-content;
+      border-radius: 4px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      padding: 2px 6px;
+      z-index: 5;
+    }
+
+    .dubb2 {
+      left: unset;
+      right: 10px;
+      background-color: white;
+      color: black;
+    }
+
+    .la-details {
+      background-color: rgb(32, 33, 37);
+      width: 100%;
+      height: 85px;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .la-details h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      text-align: left;
+      width: 100%;
+      color: white;
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .la-details span {
+      color: rgba(255, 255, 255, .3);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+    }
+
+    #extra {
+      text-align: left;
+      overflow: hidden;
+      width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ===== FOOTER ===== */
+    hr {
+      border: 0;
+      border-top: 1px solid #333;
+      margin: 0;
+    }
+
+    footer {
+      background: #eb3349;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    footer div {
+      text-align: center;
+    }
+
+    footer a {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== LOADING ===== */
+    #load {
+      text-align: center;
+      padding: 20px;
+    }
+
+    #load img {
+      width: 5%;
+      min-width: 35px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media only screen and (min-width: 420px) {
+      .shadow { height: 240px; }
+    }
+
+    @media only screen and (min-width: 580px) {
+      header {
+        padding: 15px 30px;
+      }
+
+      #title1 {
+        width: 100%;
+        text-align: center;
+      }
+
+      #search-div {
+        position: absolute;
+        right: 30px;
+        top: 15px;
+        width: auto;
+      }
+
+      #search-div input {
+        width: 200px;
+      }
+
+      .la-anime { max-width: 220px; }
+
+      .mySlides { height: 400px; }
+
+      .data-slider h1 { font-size: 30px; }
+
+      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #888; }
+      ::-webkit-scrollbar-thumb:hover { background: #555; }
+    }
+
+    @media only screen and (min-width: 1200px) {
+      .la-anime { max-width: 220px; }
+
+      .mySlides { height: 450px; }
+
+      .data-slider h1 { font-size: 32px; }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .data-slider { margin-left: 10px; max-width: 80%; }
+      .data-slider h1 { font-size: 18px; }
+      .small-synop { display: none; }
+      .mySlides { height: 320px; }
+      .watch-btn { font-size: 12px; padding: 6px 12px; }
+      .shado { box-shadow: 20px -20px 80px 40px #14151a inset; }
+      footer a { font-size: 11px; }
+    }
+
+    @media only screen and (max-width: 760px) and (min-width: 480px) {
+      .shado { box-shadow: 40px -20px 100px 50px #14151a inset; }
+      .data-slider { margin-left: 15px; }
+      .data-slider h1 { font-size: 20px; }
+      .mySlides { height: 350px; }
+      footer a { font-size: 13px; }
+    }
+
+    @keyframes fade {
+      from { opacity: .4; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="title1">
+      <a href="index.html"><span class="logo-icon">A</span> AnimeForYou</a>
+    </div>
+    <div id="search-div">
+      <form action="work.html" method="GET">
+        <input type="text" name="query" id="query" placeholder="Search Anime..." required>
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </header>
+
+  <section>
+    <div class="slideshow-container" id="slideshow"></div>
+  </section>
+
+  <section>
+    <div class="divox">
+      <h2 id="latest">Most Popular</h2>
+      <div id="latest2" id="popularGrid"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="divox">
+      <h2 id="latest">Recent Release</h2>
+      <div id="latest2" id="recentGrid"></div>
+    </div>
+  </section>
+
+  <div id="load"><img src="https://cdn.jsdelivr.net/gh/TechShreyash/AnimeDex@main/static/img/loading2.gif" alt="Loading..."></div>
+  <hr>
+  <footer>
+    <div>
+      <a href="#">AnimeForYou &copy; 2026</a>
+    </div>
+  </footer>
+  <hr>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="assets/js/anime-api.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC4eObWxV8Nk64ssj2U7efXhlKxEeECPFI",
+      authDomain: "animeforyou-e73a5.firebaseapp.com",
+      projectId: "animeforyou-e73a5",
+      storageBucket: "animeforyou-e73a5.firebasestorage.app",
+      messagingSenderId: "747290347081",
+      appId: "1:747290347081:web:354e7c49829a809010e198"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+    // Slideshow
+    let slideIndex = 0;
+    let clickes = 0;
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+      clickes = 1;
+    }
+
+    function showSlides(n) {
+      let slides = document.getElementsByClassName("mySlides");
+      if (n > slides.length) slideIndex = 1;
+      if (n < 1) slideIndex = slides.length;
+      for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+      if (slides[slideIndex - 1]) slides[slideIndex - 1].style.display = "flex";
+    }
+
+    async function autoSlide() {
+      if (clickes == 1) {
+        await new Promise(r => setTimeout(r, 10000));
+        clickes = 0;
+      }
+      let slides = document.getElementsByClassName("mySlides");
+      for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+      slideIndex++;
+      if (slideIndex > slides.length) slideIndex = 1;
+      if (slides[slideIndex - 1]) slides[slideIndex - 1].style.display = "flex";
+      setTimeout(autoSlide, 5000);
+    }
+
+    // Build anime card HTML
+    function buildAnimeCard(anime) {
+      const f = AnimeAPI.formatAnime(anime);
+      const genre = anime.genres?.[0]?.name || 'Anime';
+      return `
+        <a href="episode.html?id=${f.id}" class="la-anime">
+          <div class="shadow">
+            <img class="lzy_img" data-src="${f.image}" src="${f.image}" alt="${f.title}">
+            <span class="dubb">SUB</span>
+          </div>
+          <div class="la-details">
+            <h3>${f.title}</h3>
+            <span id="extra">${genre} · ${f.episodes || '?'} Episodes</span>
+          </div>
+        </a>
+      `;
+    }
+
+    // Build slider HTML
+    function buildSlider(anime) {
+      const f = AnimeAPI.formatAnime(anime);
+      const genre = anime.genres?.[0]?.name || 'Anime';
+      return `
+        <div class="mySlides">
+          <img src="${f.image}" alt="${f.title}">
+          <div class="shado">
+            <div class="data-slider">
+              <div class="spotlight"><i class="fa fa-star"></i> SPOTLIGHT</div>
+              <h1>${f.title}</h1>
+              <div class="year">
+                <span class="cbox cbox1">${genre}</span>
+                <span class="cbox cbox2">${f.episodes || '?'} Ep</span>
+              </div>
+              <div class="small-synop">${f.synopsis ? f.synopsis.substring(0, 150) + '...' : 'Watch ' + f.title + ' in high quality.'}</div>
+              <a href="episode.html?id=${f.id}" class="watch-btn"><i class="fa fa-play-circle"></i> Watch Now</a>
+              <a href="episode.html?id=${f.id}" class="watch-btn watch-btn2"><i class="fa fa-info-circle"></i> Details</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Load all data
+    async function loadPage() {
+      try {
+        const topAnime = await AnimeAPI.getTopAnime(6);
+        const slideshow = document.getElementById('slideshow');
+        const popularGrid = document.getElementById('popularGrid');
+        const recentGrid = document.getElementById('recentGrid');
+
+        // Slideshow
+        slideshow.innerHTML = topAnime.slice(0, 4).map(buildSlider).join('');
+        slideshow.innerHTML += '<a class="prev" onclick="plusSlides(-1)">&#10094;</a><a class="next" onclick="plusSlides(1)">&#10095;</a>';
+        showSlides(1);
+        autoSlide();
+
+        // Popular
+        popularGrid.innerHTML = topAnime.map(buildAnimeCard).join('');
+
+        // Recent
+        const seasonal = await AnimeAPI.getSeasonalAnime();
+        recentGrid.innerHTML = (seasonal.length ? seasonal : topAnime).map(buildAnimeCard).join('');
+
+        document.getElementById('load').style.display = 'none';
+
+        // Lazy load images
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const lazyImage = entry.target;
+              lazyImage.src = lazyImage.dataset.src;
+            }
+          });
+        });
+        document.querySelectorAll('img.lzy_img').forEach((v) => imageObserver.observe(v));
+      } catch (e) {
+        document.getElementById('load').innerHTML = '<p style="color:#888;">Failed to load. Try refreshing.</p>';
+      }
+    }
+
+    loadPage();
+  </script>
+</body>
+
+</html>

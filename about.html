@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#14151a" />
+  <title>About - AnimeForYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #14151a;
+      min-height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: linear-gradient(to right, #eb3349 40%, #f45c43);
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 100;
+    }
+
+    #title1 {
+      height: fit-content;
+      width: 100%;
+      text-align: center;
+    }
+
+    #title1 a {
+      font-size: x-large;
+      font-weight: 700;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #title1 a .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 8px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 800;
+      color: #eb3349;
+      font-size: 1rem;
+    }
+
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ed3832;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 22px;
+      color: #ed3832;
+      margin: 30px 0 15px;
+      font-weight: 600;
+    }
+
+    p {
+      color: #ccc;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .about-img {
+      width: 100%;
+      border: 3px solid white;
+      border-radius: 6px;
+      margin: 20px 0;
+      max-height: 300px;
+      object-fit: cover;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 15px;
+    }
+
+    .team-card {
+      background: rgb(32, 33, 37);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .team-card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-bottom: 3px solid #ed3832;
+    }
+
+    .team-card .info {
+      padding: 12px;
+    }
+
+    .team-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .team-card .role {
+      color: #ed3832;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .team-card p {
+      font-size: 12px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    .values-list {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .values-list li {
+      padding: 12px 16px;
+      background: rgb(32, 33, 37);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .values-list li .num {
+      color: #ed3832;
+      font-weight: 700;
+      font-size: 18px;
+      min-width: 30px;
+    }
+
+    .values-list li h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .values-list li p {
+      font-size: 12px;
+      color: #888;
+      margin: 0;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #333;
+      margin: 0;
+    }
+
+    footer {
+      background: #eb3349;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    footer div { text-align: center; }
+
+    footer a {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      footer a { font-size: 11px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="title1">
+      <a href="index.html"><span class="logo-icon">A</span> AnimeForYou</a>
+    </div>
+  </header>
+
+  <div class="page-content">
+    <h1>About AnimeForYou</h1>
+    <img class="about-img" src="https://cdn.myanimelist.net/images/anime/1814/99682l.jpg" alt="Anime streaming" />
+    <p>AnimeForYou is a free anime streaming platform dedicated to bringing you the best anime content from Japan
+      and around the world. Watch thousands of anime series in high quality without ads.</p>
+    <p>Our curated library features thousands of series across every genre — from action-packed shonen to
+      heartwarming slice-of-life, epic fantasy to mind-bending sci-fi.</p>
+
+    <h2>Our Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="https://cdn.myanimelist.net/images/voiceactors/3/65145.jpg" alt="Team member" />
+        <div class="info">
+          <h3>Akira Tanaka</h3>
+          <span class="role">Founder & CEO</span>
+          <p>Passionate anime fan with 15+ years in streaming technology.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="https://cdn.myanimelist.net/images/voiceactors/2/65147.jpg" alt="Team member" />
+        <div class="info">
+          <h3>Sakura Yamamoto</h3>
+          <span class="role">Content Director</span>
+          <p>Curates our library of 1000+ anime titles.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="https://cdn.myanimelist.net/images/voiceactors/1/65143.jpg" alt="Team member" />
+        <div class="info">
+          <h3>Kenji Watanabe</h3>
+          <span class="role">Lead Developer</span>
+          <p>Builds the streaming platform and ensures smooth playback.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="https://cdn.myanimelist.net/images/voiceactors/4/65149.jpg" alt="Team member" />
+        <div class="info">
+          <h3>Mika Suzuki</h3>
+          <span class="role">Community Manager</span>
+          <p>Connects with fans and manages our growing community.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Our Values</h2>
+    <ul class="values-list">
+      <li>
+        <span class="num">01</span>
+        <div>
+          <h3>Quality First</h3>
+          <p>Every anime in our library is handpicked for quality. We prioritize HD streaming and accurate subtitles.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <div>
+          <h3>Fan-Curated</h3>
+          <p>Our team watches every season to bring you the best recommendations and hidden gems.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <div>
+          <h3>Always Available</h3>
+          <p>Stream on any device, anywhere. Your watch history syncs across all your screens.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+  <footer>
+    <div>
+      <a href="#">AnimeForYou &copy; 2026</a>
+    </div>
+  </footer>
+  <hr>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = { apiKey: "AIzaSyC4eObWxV8Nk64ssj2U7efXhlKxEeECPFI", authDomain: "animeforyou-e73a5.firebaseapp.com", projectId: "animeforyou-e73a5", storageBucket: "animeforyou-e73a5.firebasestorage.app", messagingSenderId: "747290347081", appId: "1:747290347081:web:354e7c49829a809010e198" };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  </script>
+</body>
+
+</html>

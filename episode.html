@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#14151a" />
+  <title>Watch Anime - AnimeForYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #14151a;
+      min-height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: linear-gradient(to right, #eb3349 40%, #f45c43);
+      width: 100%;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 100;
+    }
+
+    #title1 {
+      height: fit-content;
+      width: 70%;
+    }
+
+    #title1 a {
+      font-size: large;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #title1 a .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: white;
+      border-radius: 8px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 800;
+      color: #eb3349;
+      font-size: 0.9rem;
+    }
+
+    #search-div {
+      background-color: white;
+      border-radius: 5px;
+      height: 36px;
+      width: 30%;
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    #search-div form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    #search-div input {
+      height: 28px;
+      background-color: transparent;
+      border: none;
+      padding-left: 10px;
+      font-size: 13px;
+      color: black;
+      font-family: 'Montserrat', sans-serif;
+      width: calc(100% - 36px);
+      outline: none;
+    }
+
+    #search-div button {
+      background-color: transparent;
+      border: none;
+      height: 36px;
+      width: 36px;
+      cursor: pointer;
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* Player Section */
+    .player-section {
+      background: #000;
+      position: relative;
+    }
+
+    .player-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Plyr Custom Theme */
+    .plyr {
+      --plyr-color-main: #ed3832;
+      --plyr-badge-background: #ed3832;
+      --plyr-badge-text-color: white;
+      --plyr-tooltip-background: rgb(32, 33, 37);
+      --plyr-tooltip-color: white;
+    }
+
+    .plyr__control--overlaid {
+      background: rgba(237, 56, 50, 0.9) !important;
+    }
+
+    .plyr:hover .plyr__control--overlaid {
+      background: #ed3832 !important;
+    }
+
+    .plyr__controls {
+      padding: 10px 12px !important;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)) !important;
+    }
+
+    .plyr__progress input[type="range"] { color: #ed3832; }
+    .plyr__volume input[type="range"] { color: #ed3832; }
+
+    .plyr__menu__container {
+      background: rgb(32, 33, 37) !important;
+      border: 1px solid #444 !important;
+    }
+
+    .plyr__menu__container button { color: white !important; }
+    .plyr__menu__container button:hover { background: rgba(237, 56, 50, 0.2) !important; }
+
+    .no-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgb(32, 33, 37);
+      color: #888;
+      gap: 12px;
+    }
+
+    .no-video i { font-size: 48px; opacity: 0.3; }
+
+    /* Episode Info */
+    .episode-info {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .episode-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .episode-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-primary {
+      background: rgba(237, 56, 50, 0.15);
+      color: #ed3832;
+    }
+
+    .badge-cyan {
+      background: rgba(6, 182, 212, 0.15);
+      color: #06b6d4;
+    }
+
+    .badge-green {
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+    }
+
+    .episode-desc {
+      color: #ccc;
+      font-size: 13px;
+      line-height: 1.7;
+      max-width: 800px;
+    }
+
+    .episode-actions {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgb(32, 33, 37);
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #ccc;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      border-color: #ed3832;
+      color: #ed3832;
+    }
+
+    .action-btn.active {
+      border-color: #ed3832;
+      color: #ed3832;
+      background: rgba(237, 56, 50, 0.1);
+    }
+
+    /* Episode Navigation */
+    .episode-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 16px auto;
+      padding: 0 20px;
+    }
+
+    .ep-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: rgb(32, 33, 37);
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #ccc;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ep-nav-btn:hover {
+      border-color: #ed3832;
+      color: #ed3832;
+    }
+
+    .ep-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Related Episodes */
+    .related-section {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px 40px;
+    }
+
+    .related-section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ed3832;
+      margin-bottom: 16px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .related-card {
+      background: rgb(32, 33, 37);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .related-card:hover { transform: translateY(-2px); }
+
+    .related-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border: none;
+    }
+
+    .related-card .info {
+      padding: 10px;
+    }
+
+    .related-card .info h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .related-card .info p {
+      color: #888;
+      font-size: 11px;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #333;
+      margin: 0;
+    }
+
+    footer {
+      background: #eb3349;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    footer div { text-align: center; }
+
+    footer a {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .related-grid { grid-template-columns: 1fr 1fr; }
+      .episode-info, .related-section, .episode-nav { padding-left: 16px; padding-right: 16px; }
+      footer a { font-size: 11px; }
+    }
+
+    @media only screen and (min-width: 580px) {
+      header { padding: 15px 30px; }
+      #title1 { width: 100%; text-align: center; }
+      #search-div { position: absolute; right: 30px; top: 15px; width: auto; }
+      #search-div input { width: 200px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="title1">
+      <a href="index.html"><span class="logo-icon">A</span> AnimeForYou</a>
+    </div>
+    <div id="search-div">
+      <form action="work.html" method="GET">
+        <input type="text" name="query" placeholder="Search Anime..." />
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </header>
+
+  <section class="player-section">
+    <div class="player-container">
+      <div id="playerWrapper">
+        <div class="no-video" id="noVideoMsg">
+          <i class="fa fa-play-circle"></i>
+          <p>No video source available. Add a video URL in the admin panel.</p>
+        </div>
+        <video id="player" poster="https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" crossorigin playsinline></video>
+      </div>
+    </div>
+  </section>
+
+  <div class="episode-info">
+    <h1 class="episode-title" id="episodeTitle">Loading...</h1>
+    <div class="episode-meta" id="episodeMeta"></div>
+    <p class="episode-desc" id="episodeDesc"></p>
+    <div class="episode-actions">
+      <button class="action-btn" id="favBtn" onclick="toggleFavorite()">
+        <i class="fa fa-heart"></i> Favorite
+      </button>
+      <button class="action-btn" id="listBtn" onclick="toggleWatchlist()">
+        <i class="fa fa-bookmark"></i> Watchlist
+      </button>
+      <button class="action-btn" onclick="shareAnime()">
+        <i class="fa fa-share"></i> Share
+      </button>
+    </div>
+  </div>
+
+  <div class="episode-nav">
+    <button class="ep-nav-btn" id="prevEp" onclick="changeEpisode(-1)">
+      <i class="fa fa-chevron-left"></i> Previous
+    </button>
+    <span id="epCounter" style="color: #888; font-size: 13px;"></span>
+    <button class="ep-nav-btn" id="nextEp" onclick="changeEpisode(1)">
+      Next <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <section class="related-section">
+    <h2>More Episodes</h2>
+    <div class="related-grid" id="relatedGrid"></div>
+  </section>
+
+  <hr>
+  <footer>
+    <div>
+      <a href="#">AnimeForYou &copy; 2026</a>
+    </div>
+  </footer>
+  <hr>
+
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="assets/js/data-store.js"></script>
+  <script>
+    const firebaseConfig = { apiKey: "AIzaSyC4eObWxV8Nk64ssj2U7efXhlKxEeECPFI", authDomain: "animeforyou-e73a5.firebaseapp.com", projectId: "animeforyou-e73a5", storageBucket: "animeforyou-e73a5.firebasestorage.app", messagingSenderId: "747290347081", appId: "1:747290347081:web:354e7c49829a809010e198" };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) updateActionButtons(user.uid);
+    });
+
+    function isGoogleDriveUrl(url) { return url && (url.includes('drive.google.com') || url.includes('docs.google.com')); }
+    function extractGoogleDriveFileId(url) {
+      let m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (m) return m[1];
+      m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      return m ? m[1] : null;
+    }
+
+    let player = null;
+    let currentAnimeId = null;
+    let currentEpisode = 1;
+    let currentAnime = null;
+
+    const params = new URLSearchParams(window.location.search);
+    currentAnimeId = params.get('id') || '1';
+    currentEpisode = parseInt(params.get('episode') || '1');
+
+    async function init() {
+      await DataStore.syncFromFirestore();
+      loadEpisode();
+    }
+
+    async function loadEpisode() {
+      const animeList = await DataStore.getAnime();
+      currentAnime = animeList.find(a => a.id == currentAnimeId);
+
+      if (!currentAnime) {
+        document.getElementById('episodeTitle').textContent = 'Anime not found';
+        return;
+      }
+
+      const videos = await DataStore.getVideos(currentAnimeId);
+      const videoData = videos[currentEpisode];
+
+      document.getElementById('episodeTitle').textContent = `${currentAnime.title} — ${videoData?.title || `Episode ${currentEpisode}`}`;
+      document.getElementById('episodeMeta').innerHTML = `
+        <span class="badge badge-primary">Season 1</span>
+        <span class="badge badge-cyan">Episode ${currentEpisode}</span>
+        <span class="badge badge-green">★ ${currentAnime.rating || 'N/A'}</span>
+        <span class="badge badge-primary">${currentAnime.year}</span>
+        ${videoData?.duration ? `<span class="badge badge-primary">${videoData.duration}</span>` : ''}
+      `;
+      document.getElementById('episodeDesc').textContent = currentAnime.description || 'No description available.';
+
+      if (currentAnime.image) {
+        document.getElementById('player').setAttribute('poster', currentAnime.image);
+      }
+
+      const totalEpisodes = currentAnime.episodes || 12;
+      document.getElementById('epCounter').textContent = `${currentEpisode} / ${totalEpisodes}`;
+      document.getElementById('prevEp').disabled = currentEpisode <= 1;
+      document.getElementById('nextEp').disabled = currentEpisode >= totalEpisodes;
+
+      if (videoData?.url) {
+        loadVideo(videoData.url);
+      } else {
+        showNoVideo();
+      }
+
+      loadRelatedEpisodes(currentAnime, videos, totalEpisodes);
+      history.replaceState({}, '', `episode.html?id=${currentAnimeId}&episode=${currentEpisode}`);
+    }
+
+    function loadVideo(url) {
+      const noVideoMsg = document.getElementById('noVideoMsg');
+      const videoEl = document.getElementById('player');
+      const wrapper = document.getElementById('playerWrapper');
+
+      noVideoMsg.style.display = 'none';
+
+      const oldIframe = wrapper.querySelector('iframe.gdrive-player');
+      if (oldIframe) oldIframe.remove();
+
+      url = DataStore.sanitizeUrl(url);
+      if (!url) { showNoVideo(); return; }
+
+      const fileId = extractGoogleDriveFileId(url);
+      if ((isGoogleDriveUrl(url) && fileId) || (fileId && url.includes('drive.google.com'))) {
+        if (player) { player.destroy(); player = null; }
+        videoEl.style.display = 'none';
+        const iframe = document.createElement('iframe');
+        iframe.className = 'gdrive-player';
+        iframe.src = 'https://drive.google.com/file/d/' + fileId + '/preview';
+        iframe.style.cssText = 'width:100%;aspect-ratio:16/9;border:none;border-radius:0;display:block;';
+        iframe.allow = 'autoplay; encrypted-media; fullscreen';
+        iframe.allowFullscreen = true;
+        wrapper.appendChild(iframe);
+        return;
+      }
+
+      videoEl.style.display = 'block';
+      videoEl.src = url;
+
+      if (player) { player.destroy(); player = null; }
+
+      let type = 'video/mp4';
+      if (url.includes('.m3u8')) type = 'application/x-mpegURL';
+      else if (url.includes('.webm')) type = 'video/webm';
+
+      const existingSource = videoEl.querySelector('source');
+      if (existingSource) existingSource.remove();
+      const source = document.createElement('source');
+      source.src = url;
+      source.type = type;
+      videoEl.appendChild(source);
+
+      if (typeof Plyr === 'undefined') {
+        noVideoMsg.innerHTML = '<i class="fa fa-exclamation-circle" style="font-size:48px;opacity:0.3;"></i><p>Player failed to load. Refresh the page.</p>';
+        noVideoMsg.style.display = 'flex';
+        videoEl.style.display = 'none';
+        return;
+      }
+
+      player = new Plyr('#player', {
+        controls: ['play-large', 'play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'settings', 'pip', 'fullscreen'],
+        settings: ['speed', 'quality'],
+        speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },
+        tooltips: { controls: true, seek: true },
+        keyboard: { focused: true, global: true },
+        fullscreen: { enabled: true, fallback: true, iosNative: true },
+        storage: { enabled: true, key: 'plyr-settings' },
+        invertTime: false,
+        toggleInvertTime: false,
+        displayDuration: true
+      });
+
+      player.on('error', () => {
+        noVideoMsg.innerHTML = '<i class="fa fa-times-circle" style="font-size:48px;opacity:0.3;"></i><p>Failed to load video. Check the URL in admin panel.</p>';
+        noVideoMsg.style.display = 'flex';
+      });
+
+      player.on('timeupdate', () => {
+        if (firebase.auth().currentUser) {
+          const progress = JSON.parse(localStorage.getItem(`a4y_progress_${firebase.auth().currentUser.uid}`) || '{}');
+          progress[currentAnimeId] = { episode: currentEpisode, time: player.currentTime, timestamp: Date.now() };
+          localStorage.setItem(`a4y_progress_${firebase.auth().currentUser.uid}`, JSON.stringify(progress));
+        }
+      });
+
+      player.on('ended', () => {
+        const total = currentAnime?.episodes || 12;
+        if (currentEpisode < total) changeEpisode(1);
+      });
+    }
+
+    function showNoVideo() {
+      if (player) { player.destroy(); player = null; }
+      document.getElementById('player').style.display = 'none';
+      document.getElementById('noVideoMsg').style.display = 'flex';
+    }
+
+    function changeEpisode(delta) {
+      const total = currentAnime?.episodes || 12;
+      const newEp = currentEpisode + delta;
+      if (newEp >= 1 && newEp <= total) {
+        currentEpisode = newEp;
+        loadEpisode();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    async function loadRelatedEpisodes(anime, videos, total) {
+      const grid = document.getElementById('relatedGrid');
+      let html = '';
+      const limit = Math.min(total, 8);
+      const esc = DataStore.esc;
+      for (let i = 1; i <= limit; i++) {
+        const ep = videos[i];
+        const epTitle = esc(ep?.title || 'Episode ' + i);
+        const epDur = esc(ep?.duration || '');
+        const imgSrc = DataStore.sanitizeUrl(anime.image) || 'https://cdn.myanimelist.net/images/anime/1015/138006l.jpg';
+        html += `
+          <div class="related-card" onclick="currentEpisode=${i}; loadEpisode(); window.scrollTo({top:0,behavior:'smooth'});">
+            <img src="${imgSrc}" alt="Episode ${i}" />
+            <div class="info">
+              <h4>${epTitle}</h4>
+              <p>${epDur}</p>
+            </div>
+          </div>
+        `;
+      }
+      grid.innerHTML = html;
+    }
+
+    function toggleFavorite() {
+      const user = firebase.auth().currentUser;
+      if (!user) { window.location.href = 'login.html'; return; }
+      const key = `a4y_favorites_${user.uid}`;
+      const favs = JSON.parse(localStorage.getItem(key) || '[]');
+      const idx = favs.findIndex(f => f.id == currentAnimeId);
+      if (idx >= 0) { favs.splice(idx, 1); document.getElementById('favBtn').classList.remove('active'); }
+      else { favs.push({ id: currentAnimeId, title: currentAnime?.title, image: currentAnime?.image }); document.getElementById('favBtn').classList.add('active'); }
+      localStorage.setItem(key, JSON.stringify(favs));
+    }
+
+    function toggleWatchlist() {
+      const user = firebase.auth().currentUser;
+      if (!user) { window.location.href = 'login.html'; return; }
+      const key = `a4y_watchlist_${user.uid}`;
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      const idx = list.findIndex(f => f.id == currentAnimeId);
+      if (idx >= 0) { list.splice(idx, 1); document.getElementById('listBtn').classList.remove('active'); }
+      else { list.push({ id: currentAnimeId, title: currentAnime?.title, image: currentAnime?.image }); document.getElementById('listBtn').classList.add('active'); }
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+
+    function shareAnime() {
+      if (navigator.share) { navigator.share({ title: currentAnime?.title, url: window.location.href }); }
+      else { navigator.clipboard.writeText(window.location.href); alert('Link copied!'); }
+    }
+
+    function updateActionButtons(uid) {
+      const favs = JSON.parse(localStorage.getItem(`a4y_favorites_${uid}`) || '[]');
+      const list = JSON.parse(localStorage.getItem(`a4y_watchlist_${uid}`) || '[]');
+      if (favs.find(f => f.id == currentAnimeId)) document.getElementById('favBtn')?.classList.add('active');
+      if (list.find(f => f.id == currentAnimeId)) document.getElementById('listBtn')?.classList.add('active');
+    }
+
+    init();
+  </script>
+</body>
+
+</html>

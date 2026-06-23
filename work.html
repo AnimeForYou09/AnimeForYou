@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#14151a" />
+  <title>Browse Anime - AnimeForYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #14151a;
+      min-height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: linear-gradient(to right, #eb3349 40%, #f45c43);
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 100;
+    }
+
+    #title1 {
+      height: fit-content;
+      width: 70%;
+    }
+
+    #title1 a {
+      font-size: x-large;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #title1 a .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 8px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 800;
+      color: #eb3349;
+      font-size: 1rem;
+    }
+
+    #search-div {
+      background-color: white;
+      border-radius: 5px;
+      height: 40px;
+      width: 30%;
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    #search-div form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    #search-div input {
+      height: 28px;
+      background-color: transparent;
+      border: none;
+      padding-left: 10px;
+      font-size: 14px;
+      font-weight: 400;
+      color: black;
+      font-family: 'Montserrat', sans-serif;
+      width: calc(100% - 40px);
+      outline: none;
+    }
+
+    #search-div button {
+      background-color: transparent;
+      border: none;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .page-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      color: #ed3832;
+      font-weight: 600;
+      font-size: 20px;
+      margin: 10px 0 15px;
+    }
+
+    /* ===== FILTER CHIPS ===== */
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      scrollbar-width: none;
+    }
+
+    .filter-chips::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgb(32, 33, 37);
+      border: 1px solid #444;
+      color: #ccc;
+      font-weight: 500;
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-chip:hover {
+      border-color: #ed3832;
+      color: white;
+    }
+
+    .filter-chip.active {
+      background: #ed3832;
+      color: white;
+      border-color: transparent;
+    }
+
+    /* ===== ANIME GRID ===== */
+    .anime-grid {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+
+    .la-anime {
+      display: inline-block;
+      padding: 0;
+      margin: 0 3px;
+      margin-bottom: 6px;
+      position: relative;
+      width: calc(50% - 20px);
+      max-width: 200px;
+    }
+
+    .shadow {
+      box-shadow: inset 0px -100px 50px -50px rgba(32, 33, 37, 1);
+      position: relative;
+      height: 200px;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .shadow img {
+      border: none;
+      border-radius: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      max-width: unset;
+      position: relative;
+    }
+
+    .dubb {
+      color: white;
+      background-color: red;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      display: block;
+      width: fit-content;
+      border-radius: 4px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      padding: 2px 6px;
+      z-index: 5;
+    }
+
+    .dubb2 {
+      left: unset;
+      right: 10px;
+      background-color: white;
+      color: black;
+    }
+
+    .la-details {
+      background-color: rgb(32, 33, 37);
+      width: 100%;
+      height: 85px;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .la-details h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      text-align: left;
+      width: 100%;
+      color: white;
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .la-details span {
+      color: rgba(255, 255, 255, .3);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+    }
+
+    #extra {
+      text-align: left;
+      overflow: hidden;
+      width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .loading-spinner {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #333;
+      margin: 0;
+    }
+
+    footer {
+      background: #eb3349;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    footer div { text-align: center; }
+
+    footer a {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    @media only screen and (min-width: 580px) {
+      header { padding: 15px 30px; }
+      #title1 { width: 100%; text-align: center; }
+      #search-div { position: absolute; right: 30px; top: 15px; width: auto; }
+      #search-div input { width: 200px; }
+      .la-anime { max-width: 220px; }
+
+      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #888; }
+    }
+
+    @media only screen and (min-width: 1200px) {
+      .la-anime { max-width: 220px; }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .la-anime { width: calc(50% - 16px); }
+      .la-details h3 { font-size: 12px; }
+      footer a { font-size: 11px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="title1">
+      <a href="index.html"><span class="logo-icon">A</span> AnimeForYou</a>
+    </div>
+    <div id="search-div">
+      <form onsubmit="searchAnime(document.getElementById('searchInput').value); return false;">
+        <input type="text" id="searchInput" placeholder="Search Anime..." />
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </header>
+
+  <div class="page-content">
+    <h2>Browse Anime</h2>
+
+    <div class="filter-chips" id="genreChips">
+      <button class="filter-chip active" onclick="filterGenre('all', this)">All</button>
+      <button class="filter-chip" onclick="filterGenre('action', this)">Action</button>
+      <button class="filter-chip" onclick="filterGenre('adventure', this)">Adventure</button>
+      <button class="filter-chip" onclick="filterGenre('comedy', this)">Comedy</button>
+      <button class="filter-chip" onclick="filterGenre('drama', this)">Drama</button>
+      <button class="filter-chip" onclick="filterGenre('fantasy', this)">Fantasy</button>
+      <button class="filter-chip" onclick="filterGenre('romance', this)">Romance</button>
+      <button class="filter-chip" onclick="filterGenre('sci-fi', this)">Sci-Fi</button>
+    </div>
+
+    <div class="loading-spinner" id="loading">Loading anime...</div>
+    <div class="anime-grid" id="animeGrid"></div>
+  </div>
+
+  <hr>
+  <footer>
+    <div>
+      <a href="#">AnimeForYou &copy; 2026</a>
+    </div>
+  </footer>
+  <hr>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="assets/js/anime-api.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC4eObWxV8Nk64ssj2U7efXhlKxEeECPFI",
+      authDomain: "animeforyou-e73a5.firebaseapp.com",
+      projectId: "animeforyou-e73a5",
+      storageBucket: "animeforyou-e73a5.firebasestorage.app",
+      messagingSenderId: "747290347081",
+      appId: "1:747290347081:web:354e7c49829a809010e198"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+    let allAnime = [];
+    let currentGenre = 'all';
+
+    function buildAnimeCard(anime) {
+      const f = AnimeAPI.formatAnime(anime);
+      const genre = anime.genres?.[0]?.name || 'Anime';
+      return `
+        <a href="episode.html?id=${f.id}" class="la-anime">
+          <div class="shadow">
+            <img src="${f.image}" alt="${f.title}" loading="lazy">
+            <span class="dubb">SUB</span>
+          </div>
+          <div class="la-details">
+            <h3>${f.title}</h3>
+            <span id="extra">${genre} · ${f.episodes || '?'} Episodes</span>
+          </div>
+        </a>
+      `;
+    }
+
+    function renderAnime(list) {
+      const grid = document.getElementById('animeGrid');
+      const loading = document.getElementById('loading');
+      loading.style.display = 'none';
+      if (list.length === 0) {
+        grid.innerHTML = '<p style="color:#888;text-align:center;width:100%;">No anime found</p>';
+        return;
+      }
+      grid.innerHTML = list.map(buildAnimeCard).join('');
+    }
+
+    async function loadAnime() {
+      try {
+        const topAnime = await AnimeAPI.getTopAnime(25);
+        const seasonal = await AnimeAPI.getSeasonalAnime();
+        allAnime = [...topAnime, ...seasonal];
+        renderAnime(allAnime);
+      } catch (e) {
+        document.getElementById('loading').innerHTML = '<p style="color:#888;">Failed to load anime</p>';
+      }
+    }
+
+    function filterGenre(genre, btn) {
+      currentGenre = genre;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      if (genre === 'all') {
+        renderAnime(allAnime);
+      } else {
+        const genreId = AnimeAPI.genres?.[genre];
+        if (genreId) {
+          AnimeAPI.getAnimeByGenre(genreId, 20).then(renderAnime);
+        }
+      }
+    }
+
+    async function searchAnime(query) {
+      if (query.length < 2) {
+        renderAnime(allAnime);
+        return;
+      }
+      const results = await AnimeAPI.searchAnime(query, 20);
+      renderAnime(results);
+    }
+
+    loadAnime();
+  </script>
+</body>
+
+</html>
